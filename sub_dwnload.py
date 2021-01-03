@@ -26,7 +26,9 @@ def collect_mp3(path):
 
 def get_subtitles(audio_files, target_path):
     """Download subtitle files from source websites to target path"""
-    pass
+    file_info = [(f[0], f[1][:-4]) for f in map(lambda filename: filename.split('_'), audio_files)]
+    for artist, song_name in file_info:
+        download_subtitles(artist, song_name)
 
 if __name__ == "__main__":
     main()
