@@ -17,13 +17,16 @@ from bs4 import BeautifulSoup
 def main():
     target_path = sys.argv[1] if len(sys.argv) == 2 else os.getcwd()
     mp3_lst = collect_mp3(target_path) 
-    get_subtitles(mp3_lst)
+    get_subtitles(mp3_lst, target_path)
     return 0
 
 def collect_mp3(path):
     """collect mp3 files from given path"""
     return [filename for filename in os.listdir(path) if filename[-4:] == ".mp3"]
 
+def get_subtitles(audio_files, target_path):
+    """Download subtitle files from source websites to target path"""
+    pass
 
 if __name__ == "__main__":
     main()
