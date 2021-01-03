@@ -20,6 +20,10 @@ def main():
     get_subtitles(mp3_lst)
     return 0
 
+def collect_mp3(path):
+    """collect mp3 files from given path"""
+    return [filename for filename in os.listdir(path) if filename[-4:] == ".mp3"]
+
 
 if __name__ == "__main__":
     main()
