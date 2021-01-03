@@ -8,3 +8,18 @@ Todo list:
         -program exits if everthing works properly, otherwise show relevant readable error messages
 
 """
+import sys
+import os
+import requests
+from opencc import OpenCC
+from bs4 import BeautifulSoup
+
+def main():
+    target_path = sys.argv[1] if len(sys.argv) == 2 else os.getcwd()
+    mp3_lst = collect_mp3(target_path) 
+    get_subtitles(mp3_lst)
+    return 0
+
+
+if __name__ == "__main__":
+    main()
