@@ -62,6 +62,7 @@ def vvl_handler(artist, song_name, path, test_exausted = False):
         return True
     except Exception as e:
         print(Fore.RED + f"something went wrong when downloading the file from {source}")
+        print(Fore.RED + e)
         return False
 
 if __name__ == "__main__":
