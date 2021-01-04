@@ -38,5 +38,21 @@ def download_subtitle(artist, song_name):
             print(f"Download {artist}_{song_name}.lrc success")
             return True
 
+def vvl_handler(artist, song_name, test_exausted = False):
+    source = "vvlyrics.com"
+    cc = OpenCC("t2s") # convert traditional chinese characters into simplified ones
+    try:
+        response = requests.get(f"{source}/{artist}/{song_name}?download=1")
+        if not response.ok and (not test_exausted):
+            vvl_handler(cc.convert(artist), cc.convert(song_name), test_exausted = True)
+        else:
+            return False
+        with open(f"{artist}_{song_name}.lrc", "wb") as f:
+            f.write(response.content)
+        return True
+    except Exception as e:
+        print(f"something went wrong when downloading the file from {source}")
+        return False
+
 if __name__ == "__main__":
     main()
