@@ -29,6 +29,14 @@ def get_subtitles(audio_files, target_path):
     file_info = [(f[0], f[1][:-4]) for f in map(lambda filename: filename.split('_'), audio_files)]
     for artist, song_name in file_info:
         download_subtitles(artist, song_name)
+def download_subtitle(artist, song_name):
+    """Download lrc file by given artist song name"""
+    source_handlers = [vvl_handler]
+    print(f"Downloading {artist}_{song_name}.lrc...")
+    for handler in source_handlers:
+        if handler(artist, song_name):
+            print(f"Download {artist}_{song_name}.lrc success")
+            return True
 
 if __name__ == "__main__":
     main()
