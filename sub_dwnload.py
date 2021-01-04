@@ -12,7 +12,6 @@ import sys
 import os
 import requests
 from opencc import OpenCC
-from bs4 import BeautifulSoup
 
 def main():
     target_path = sys.argv[1] if len(sys.argv) == 2 else os.getcwd()
