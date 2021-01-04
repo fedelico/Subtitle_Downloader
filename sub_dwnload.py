@@ -44,10 +44,10 @@ def download_subtitle(artist, song_name, target_path):
     return False
 
 def vvl_handler(artist, song_name, path, test_exausted = False):
-    source = "vvlyrics.com"
+    source = "https://vvlyrics.com"
     cc = OpenCC("t2s") # convert traditional chinese characters into simplified ones
     try:
-        response = requests.get(f"{source}/{artist}/{song_name}?download=1")
+        response = requests.get(f"{source}/artist/{artist}/{song_name}?download=1")
         if not response.ok and (not test_exausted):
             vvl_handler(cc.convert(artist), cc.convert(song_name), test_exausted = True)
         else:
