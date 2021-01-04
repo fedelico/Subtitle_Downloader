@@ -11,7 +11,10 @@ Todo list:
 import sys
 import os
 import requests
+import colorama
 from opencc import OpenCC
+from colorama import Fore
+colorama.init(autoreset = True)
 
 def main():
     target_path = sys.argv[1] if len(sys.argv) == 2 else os.getcwd()
@@ -35,8 +38,10 @@ def download_subtitle(artist, song_name, target_path):
     print(f"Downloading {artist}_{song_name}.lrc...")
     for handler in source_handlers:
         if handler(artist, song_name, target_path):
-            print(f"Download {artist}_{song_name}.lrc success")
+            print(Fore.GREEN + f"Download {artist}_{song_name}.lrc success")
             return True
+    print(Fore.RED + f"Unable to Download {artist}_{song_name}.lrc")
+    return False
 
 def vvl_handler(artist, song_name, path, test_exausted = False):
     source = "vvlyrics.com"
@@ -53,7 +58,7 @@ def vvl_handler(artist, song_name, path, test_exausted = False):
             f.write(response.content)
         return True
     except Exception as e:
-        print(f"something went wrong when downloading the file from {source}")
+        print(Fore.RED + f"something went wrong when downloading the file from {source}")
         return False
 
 if __name__ == "__main__":
