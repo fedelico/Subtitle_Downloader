@@ -28,17 +28,17 @@ def get_subtitles(audio_files, target_path):
     """Download subtitle files from source websites to target path"""
     file_info = [(f[0], f[1][:-4]) for f in map(lambda filename: filename.split('_'), audio_files)]
     for artist, song_name in file_info:
-        download_subtitles(artist, song_name)
-def download_subtitle(artist, song_name):
+        download_subtitles(artist, song_name, target_path)
+def download_subtitle(artist, song_name, target_path):
     """Download lrc file by given artist song name"""
     source_handlers = [vvl_handler]
     print(f"Downloading {artist}_{song_name}.lrc...")
     for handler in source_handlers:
-        if handler(artist, song_name):
+        if handler(artist, song_name, target_path):
             print(f"Download {artist}_{song_name}.lrc success")
             return True
 
-def vvl_handler(artist, song_name, test_exausted = False):
+def vvl_handler(artist, song_name, path, test_exausted = False):
     source = "vvlyrics.com"
     cc = OpenCC("t2s") # convert traditional chinese characters into simplified ones
     try:
@@ -47,7 +47,9 @@ def vvl_handler(artist, song_name, test_exausted = False):
             vvl_handler(cc.convert(artist), cc.convert(song_name), test_exausted = True)
         else:
             return False
-        with open(f"{artist}_{song_name}.lrc", "wb") as f:
+        if path[-1] == '/':
+            path = [:-1]
+        with open(f"{path}/{artist}_{song_name}.lrc", "wb") as f:
             f.write(response.content)
         return True
     except Exception as e:
