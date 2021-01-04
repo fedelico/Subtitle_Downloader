@@ -52,7 +52,7 @@ def vvl_handler(artist, song_name, path, test_exausted = False):
         response = requests.get(f"{source}/artist/{artist}/{song_name}?download=1", headers = headers)
         if not response.ok :
             if not test_exausted:
-                return vvl_handler(cc.convert(artist), cc.convert(song_name), test_exausted = True)
+                return vvl_handler(cc.convert(artist), cc.convert(song_name), path, test_exausted = True)
             else:
                 return False
         if path[-1] == '/':
