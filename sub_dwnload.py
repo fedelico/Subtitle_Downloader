@@ -53,7 +53,7 @@ def vvl_handler(artist, song_name, path, test_exausted = False):
         else:
             return False
         if path[-1] == '/':
-            path = [:-1]
+            path = path[:-1]
         with open(f"{path}/{artist}_{song_name}.lrc", "wb") as f:
             f.write(response.content)
         return True
