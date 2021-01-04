@@ -28,7 +28,8 @@ def get_subtitles(audio_files, target_path):
     """Download subtitle files from source websites to target path"""
     file_info = [(f[0], f[1][:-4]) for f in map(lambda filename: filename.split('_'), audio_files)]
     for artist, song_name in file_info:
-        download_subtitles(artist, song_name, target_path)
+        download_subtitle(artist, song_name, target_path)
+
 def download_subtitle(artist, song_name, target_path):
     """Download lrc file by given artist song name"""
     source_handlers = [vvl_handler]
