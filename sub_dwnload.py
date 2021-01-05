@@ -12,6 +12,7 @@ import sys
 import os
 import requests
 import colorama
+import platform
 from opencc import OpenCC
 from colorama import Fore
 colorama.init(autoreset = True)
@@ -62,9 +63,9 @@ def vvl_handler(artist, song_name, path, test_exausted = False):
                 return vvl_handler(cc.convert(artist), cc.convert(song_name), path, test_exausted = True)
             else:
                 return False
-        if path[-1] == '/':
-            path = path[:-1]
-        with open(f"{path}/{artist}_{song_name}.lrc", "wb") as f:
+        path_separator = '\\' if platform.system() == "Windows" else '/'
+        path.rstrip(path_separator)
+        with open(f"{path}{path_separator}{artist}_{song_name}.lrc", "wb") as f:
             f.write(response.content)
         return True
     except Exception as e:
