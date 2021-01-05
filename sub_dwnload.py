@@ -18,8 +18,15 @@ colorama.init(autoreset = True)
 
 def main():
     target_path = sys.argv[1] if len(sys.argv) == 2 else os.getcwd()
-    mp3_lst = collect_mp3(target_path) 
-    get_subtitles(mp3_lst, target_path)
+    if len(sys.argv) == 1:
+        mp3_lst = collect_mp3(target_path)
+        get_subtitles(mp3_lst, target_path)
+    for target_path in sys.argv[1:]:
+        if os.path.isdir(target_path):
+            mp3_lst = collect_mp3(target_path) 
+            get_subtitles(mp3_lst, target_path)
+        else:
+            print(Fore.RED + f"{target_path} is not a directory or does not exist")
     return 0
 
 def collect_mp3(path):
