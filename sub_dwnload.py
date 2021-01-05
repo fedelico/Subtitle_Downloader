@@ -24,7 +24,7 @@ def main():
 
 def collect_mp3(path):
     """collect mp3 files from given path"""
-    return [filename for filename in os.listdir(path) if filename[-4:] == ".mp3"]
+    return [filename for filename in os.listdir(path) if filename[-4:] == ".mp3" and filename.count('_') == 1]
 
 def get_subtitles(audio_files, target_path):
     """Download subtitle files from source websites to target path"""
