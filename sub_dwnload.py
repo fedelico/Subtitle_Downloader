@@ -46,6 +46,7 @@ def vvl_handler(artist, song_name, path, test_exausted = False):
     headers = {'User-Agent':"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
                'Referer':"https://vvlyrics.com"}
     cc = OpenCC("t2s") # convert traditional chinese characters into simplified ones
+    file_cc = OpenCC("s2t")
     try:
         response = requests.get(f"{source}/artist/{artist}/{song_name}?download=1", headers = headers)
         if not response.ok :
@@ -55,7 +56,7 @@ def vvl_handler(artist, song_name, path, test_exausted = False):
                 return False
         path_separator = '\\' if platform.system() == "Windows" else '/'
         path.rstrip(path_separator)
-        with open(f"{path}{path_separator}{artist}_{song_name}.lrc", "wb") as f:
+        with open(f"{path}{path_separator}{file_cc.convert(artist)}_{file_cc.convert(song_name)}.lrc", "wb") as f:
             f.write(response.content)
         return True
     except Exception as e:
