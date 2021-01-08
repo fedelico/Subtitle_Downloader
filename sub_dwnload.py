@@ -8,6 +8,7 @@ from colorama import Fore
 colorama.init(autoreset = True)
 
 def main():
+    """Control main logic of the program"""
     target_path = sys.argv[1] if len(sys.argv) == 2 else os.getcwd()
     if len(sys.argv) == 1:
         mp3_lst = collect_mp3(target_path)
@@ -42,6 +43,7 @@ def download_subtitle(artist, song_name, target_path):
     return False
 
 def vvl_handler(artist, song_name, path, test_exausted = False):
+    """handler function for website vvlyrics.com"""
     source = "https://vvlyrics.com"
     headers = {'User-Agent':"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
                'Referer':"https://vvlyrics.com"}
