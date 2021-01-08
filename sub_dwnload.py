@@ -47,18 +47,20 @@ def vvl_handler(artist, song_name, path, test_exausted = False):
     source = "https://vvlyrics.com"
     headers = {'User-Agent':"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
                'Referer':"https://vvlyrics.com"}
-    cc = OpenCC("t2s") # convert traditional chinese characters into simplified ones
-    file_cc = OpenCC("s2t")
+    t2s_cc = OpenCC("t2s") # convert traditional chinese characters into simplified ones
+    s2t_cc= OpenCC("s2t")
     try:
         response = requests.get(f"{source}/artist/{artist}/{song_name}?download=1", headers = headers)
         if not response.ok :
             if not test_exausted:
-                return vvl_handler(cc.convert(artist), cc.convert(song_name), path, test_exausted = True)
+                return vvl_handler(t2s_cc.convert(artist), t2s_cc.convert(song_name), path, test_exausted = True)
             else:
                 return False
         path_separator = '\\' if platform.system() == "Windows" else '/'
         path.rstrip(path_separator)
-        with open(f"{path}{path_separator}{file_cc.convert(artist)}_{file_cc.convert(song_name)}.lrc", "wb") as f:
+        artist = s2t_cc.convert(artist) if test_exausted else artist #let produced file has the same name as its corresponding mp3 file
+        song_name = s2t_cc.convert(artist) if test_exausted else song_name
+        with open(f"{path}{path_separator}{artist}_{song_name}.lrc", "wb") as f:
             f.write(response.content)
         return True
     except Exception as e:
