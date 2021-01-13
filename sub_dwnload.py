@@ -59,7 +59,7 @@ def vvl_handler(artist, song_name, path, test_exausted = False):
         path_separator = '\\' if platform.system() == "Windows" else '/'
         path.rstrip(path_separator)
         artist = s2t_cc.convert(artist) if test_exausted else artist #let produced file has the same name as its corresponding mp3 file
-        song_name = s2t_cc.convert(artist) if test_exausted else song_name
+        song_name = s2t_cc.convert(song_name) if test_exausted else song_name
         with open(f"{path}{path_separator}{artist}_{song_name}.lrc", "wb") as f:
             f.write(response.content)
         return True
