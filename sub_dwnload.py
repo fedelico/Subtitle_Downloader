@@ -49,9 +49,7 @@ def download_subtitle(artist, song_name, target_path):
 def vvl_handler(artist, song_name, path, test_exausted=False):
     """handler function for website vvlyrics.com"""
     source = "https://vvlyrics.com"
-    headers = {'User-Agent': """Mozilla/5.0 (X11; Linux x86_64)
-                               AppleWebKit/537.36 (KHTML, like Gecko)
-                               Chrome/87.0.4280.88 Safari/537.36""",
+    headers = {'User-Agent': "Chrome/87.0.4280.88 Safari/537.36",
                'Referer': "https://vvlyrics.com"}
     # convert traditional chinese characters into simplified ones
     t2s_cc = OpenCC("t2s")
